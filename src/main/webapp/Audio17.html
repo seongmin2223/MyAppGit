@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio17.html</title>
+    <link rel="shortcut icon" href="#"/>
+</head>
+<body>
+    <h2> 기본 audio </h2>   
+    
+    <audio src="Media/audio.mp3" controls>
+        
+    <!--
+    <audio src="Media/audio.mp3" controls autoplay loop></audio>
+        -->
+        audio태그를 지원하지 않는 브라우저입니다.<br/>
+        여기를 <a href="Media/audio.mp3">클릭</a>하세요
+
+    </audio>
+    
+    <h2>audio하위태그 인 &lt; source&gt; 태그 사용</h2>
+    <audio controls>
+    <source src="Media/audio.ogg" type="audio/ogg"/>
+    <source src="Media/audio.mp3" type="audio/mp3"/>
+    </audio>
+    
+    <h2>커스텀 오디오</h2>
+    <div>
+        <progress value="0"></progress>
+
+    </div>
+
+    <div>
+        <input type="button" value="PLAY" onclick="play();"/>
+        <input type="button" value="PAUSE" onclick="pause();"/>
+        <input type="button" value="STOP" onclick="stop();"/>
+        &nbsp;&nbsp;<span id="current"></span> / <span id="total"></span>
+     </div>
+     <script>
+         var audio = new Audio("Media/audio.mp3");
+         console.log('타입:%s,audio:%O',typeof audio,audio);
+         //span객체 얻기
+         var currentSpan=document.getElementById("current");
+         var totalSpan=document.querySelector('#total');
+         ///
+         var progress=document.querySelector('progress');
+         //addEventLister()함수 사용
+         audio.addEventListener('timeupdate',function(){
+            //오디오 총 재생시간 얻고 설정
+            totalSpan.textContent = audio.duration;
+            currentSpan.textContent=audio.currentTime;
+            progress.max=audio.duration;
+
+            progress.value = audio.currentTime;
+
+
+            
+         });
+
+         var play = function(){
+             audio.play();
+         };
+
+         var pause = function(){
+             audio.pause();
+         };
+
+         var stop = function(){
+            if(audio.played){
+                audio.currentTime=0;
+                audio.pause();
+            }
+            
+         };
+
+
+
+
+
+     </script>
+
+
+
+</body>
+</html>
